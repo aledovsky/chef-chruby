@@ -19,6 +19,11 @@ platforms:
   driver_config:
     box: opscode-centos-5.8
     box_url: http://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-5.8_chef-11.2.0.box
+- name: centos-7.1
+  driver_config:
+    box: opscode-centos-7.1
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.1_chef-provisionerless.box
+    require_chef_omnibus: true
 
 suites:
 - name: default
