@@ -20,7 +20,9 @@
 
 include_recipe 'libarchive::default'
 
-archive = remote_file node['chruby']['source_url'] % { version: node['chruby']['version'] } do
+archive = remote_file("chruby.zip") do
+  path     "#{Chef::Config[:file_cache_path]}/chruby-#{node['chruby']['version']}.zip"
+  source   format(node['chruby']['source_url'], version: node['chruby']['version'])
   checksum node['chruby']['source_checksum']
 end
 
@@ -30,12 +32,12 @@ end
 
 libarchive_file File.basename(archive.path) do
   path archive.path
-  extract_to File.join(node['chruby']['install_path'], node['chruby']['version'])
+  extract_to File.join(node['chruby']['install_path'])
   action :extract
 end
 
-execute "make install --prefix #{node['chruby']['prefix_path']}" do
-  cwd File.join(node['chruby']['install_path'], node['chruby']['version'])
+execute "make install PREFIX=#{node['chruby']['prefix_path']}" do
+  cwd File.join(node['chruby']['install_path'], "chruby-#{node['chruby']['version']}")
 end
 
 template '/etc/profile.d/chruby.sh' do
