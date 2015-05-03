@@ -29,3 +29,8 @@ suites:
 - name: default
   run_list: ["recipe[chruby]"]
   attributes: {}
+- name: with_profile
+  run_list: ["recipe[chruby]"]
+  attributes:
+    chruby:
+      sh_profile: true
