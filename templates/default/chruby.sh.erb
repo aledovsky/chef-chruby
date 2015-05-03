@@ -3,7 +3,7 @@
 
 source '<%= node['chruby']['prefix_path'] %>/share/chruby/chruby.sh'
 
-<% if node['chruby']['sh_rubies'] -%>
+<% if node['chruby']['sh_rubies'].size > 0 -%>
 export RUBIES=(<%= node['chruby']['sh_rubies'].join(' ') %>)
 <% end -%>
 
